@@ -8,5 +8,7 @@ namespace nopact.ChefsLastStand.Data.ChefData
     public class ChefData : ScriptableObject
     {
         public float moveSpeed;
+        public float attackRate;
+        public float attackRange;
     }
 }

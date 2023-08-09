@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ChefData
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  attackRate: 1
+  attackRange: 3
