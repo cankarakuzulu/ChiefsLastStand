@@ -1,27 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using nopact.ChefsLastStand.Data.ChefData;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Controls
 {
+    [RequireComponent(typeof(PlayerMovementController))]
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField]
-        private Joystick joystick;
+        private PlayerMovementController movementController;
 
-        [SerializeField]
-        private float moveSpeed = 2f;
-
-        private Vector2 moveDirection;
-        void Update()
+        private void Awake()
         {
-            moveDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-            moveDirection.Normalize();
+            movementController = GetComponent<PlayerMovementController>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            transform.position += moveSpeed * Time.fixedDeltaTime * new Vector3(moveDirection.x, moveDirection.y, 0);
+            movementController.HandleMovement();
         }
     }
 }
