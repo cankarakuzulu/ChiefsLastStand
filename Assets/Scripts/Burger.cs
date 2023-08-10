@@ -9,7 +9,22 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
     {
         [SerializeField] private float speed = 5f;
 
+        private Chef chef;
+        private float damage;
         private Vector2 moveDirection;
+
+        private void Start()
+        {
+            chef = FindObjectOfType<Chef>();
+            if (chef != null)
+            {
+                damage = chef.ChefData.damage;
+            }
+            else
+            {
+                Debug.LogError("Chef not found!");
+            }
+        }
 
         private void Update()
         {
@@ -30,7 +45,7 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             Customer customer = other.GetComponent<Customer>();
             if (customer)
             {
-                Destroy(customer.gameObject);
+                customer.TakeDamage(damage);
                 Destroy(gameObject);
             }
         }

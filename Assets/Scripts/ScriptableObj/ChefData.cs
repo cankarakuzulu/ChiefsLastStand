@@ -10,5 +10,6 @@ namespace nopact.ChefsLastStand.Data.ChefData
         public float moveSpeed;
         public float attackRate;
         public float attackRange;
+        public float damage;
     }
 }

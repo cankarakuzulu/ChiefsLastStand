@@ -15,3 +15,4 @@ MonoBehaviour:
   moveSpeed: 2
   attackRate: 1
   attackRange: 3
+  damage: 1

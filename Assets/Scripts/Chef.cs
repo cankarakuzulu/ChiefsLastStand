@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public class Chef : MonoBehaviour
+    public class Chef : Character
     {
         [SerializeField] private ChefData chefData;
         public ChefData ChefData => chefData;
-        
+
     }
 }
