@@ -13,6 +13,7 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
 
         private Chef chef;
         private float lastAttackTime = float.MinValue;
+        private bool isReadyToAttack = true;
 
         private void Start()
         {
@@ -23,8 +24,12 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
         {
             if (Time.time >= lastAttackTime + chef.ChefData.attackRate)
             {
+                isReadyToAttack = true;
+            }
+
+            if (isReadyToAttack)
+            {
                 AttackNearestCustomer();
-                lastAttackTime = Time.time;
             }
         }
         private void AttackNearestCustomer()
@@ -38,6 +43,9 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
                 Burger burger = burgerGO.GetComponent<Burger>();
                 Vector2 directionToCustomer = nearestCustomer.transform.position - transform.position;
                 burger.SetInitialDirection(directionToCustomer.normalized);
+
+                lastAttackTime = Time.time;
+                isReadyToAttack = false;
             }
         }
         private Customer FindNearestCustomer()
