@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public class Customer : MonoBehaviour
+    public class Customer : Character
     {
         [SerializeField] protected float moveSpeed = 1f;
+        [SerializeField] private float damage;
 
         private Transform chefTransform;
 
-        protected virtual void Start()
+        protected override void Start()
         {
+            base.Start();
+
             GameObject chefObject = GameObject.FindWithTag("Chef");
             if (chefObject != null)
             {
