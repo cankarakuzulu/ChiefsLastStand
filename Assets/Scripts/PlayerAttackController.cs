@@ -22,7 +22,7 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
         
         public void HandleAttack()
         {
-            if (Time.time >= lastAttackTime + chef.ChefData.attackRate)
+            if (Time.time >= lastAttackTime + chef.ChefData.attackCooldown)
             {
                 isReadyToAttack = true;
             }

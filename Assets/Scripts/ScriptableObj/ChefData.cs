@@ -5,11 +5,8 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Data.ChefData
 {
     [CreateAssetMenu(fileName = "ChefData", menuName = "ChefsLastStand/ChefData", order = 0)]
-    public class ChefData : ScriptableObject
+    public class ChefData : CharacterData
     {
-        public float moveSpeed;
-        public float attackRate;
         public float attackRange;
-        public float damage;
     }
 }

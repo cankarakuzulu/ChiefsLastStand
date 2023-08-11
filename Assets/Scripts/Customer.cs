@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using nopact.ChefsLastStand.Data.CustomerData;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public class Customer : Character
+    public abstract class Customer : Character
     {
-        [SerializeField] protected float moveSpeed = 1f;
-        [SerializeField] private float damage;
-
-        private Transform chefTransform;
+        protected Transform chefTransform;
+        protected float lastAttackTime = float.MinValue;
 
         protected override void Start()
         {
@@ -25,17 +24,15 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                 Debug.LogError("Chef object not found. Make sure the Chef is tagged appropriately.");
             }
         }
+
         protected virtual void Update()
         {
             ChaseChef();
+
+            // The attack logic with its cooldown will be handled in the derived classes
         }
 
-        protected virtual void ChaseChef()
-        {
-            if (chefTransform == null) return;
-
-            Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-            transform.position += (Vector3)directionToChef * moveSpeed * Time.deltaTime;
-        }
+        protected abstract void ChaseChef();
+        protected abstract void Attack();
     }
 }
