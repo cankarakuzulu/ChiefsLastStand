@@ -16,11 +16,22 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         protected BossState currentState;
         protected float lastAttackTime;
+        protected Transform chefTransform;
 
         protected override void Start()
         {
             base.Start();
             currentState = BossState.Idle;
+
+            GameObject chefObject = GameObject.FindWithTag("Chef");
+            if (chefObject != null)
+            {
+                chefTransform = chefObject.transform;
+            }
+            else
+            {
+                Debug.LogError("Chef object not found. Make sure the Chef is tagged appropriately.");
+            }
         }
 
         protected virtual void Update()

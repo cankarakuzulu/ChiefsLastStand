@@ -515,6 +515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedCustomer
       objectReference: {fileID: 0}
+    - target: {fileID: 2941982373428333248, guid: a2308b51e0c66a4409a24a75cc7c44f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6068844148912379561, guid: a2308b51e0c66a4409a24a75cc7c44f7, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -629,6 +633,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2f797816bba884a9ecd168747ece10, type: 3}
+--- !u!1001 &3387625560085437968
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 944080815959651019, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_Name
+      value: FoodCritic(Boss)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405635871104983198, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c47819d269174f14384da7c71e3a6d36, type: 3}
 --- !u!1001 &7344210837351028606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -640,6 +705,10 @@ PrefabInstance:
     - target: {fileID: 3924048926399884561, guid: 2326ebe83d03f8e4ba74939c65dbd5ee, type: 3}
       propertyPath: m_Name
       value: MeleeCustomer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3924048926399884561, guid: 2326ebe83d03f8e4ba74939c65dbd5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8059569754210243292, guid: 2326ebe83d03f8e4ba74939c65dbd5ee, type: 3}
       propertyPath: m_RootOrder
