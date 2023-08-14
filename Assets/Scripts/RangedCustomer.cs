@@ -9,26 +9,39 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
     {
         [SerializeField] private GameObject rangedProjectilePrefab;
         [SerializeField] private float attackRange;
+
+        private enum RangedCustomerState
+        {
+            Chasing,
+            Attacking
+        }
+
+        private RangedCustomerState currentState = RangedCustomerState.Chasing;
+
+        protected void Update()
+        {
+            DetermineState();
+
+            switch (currentState)
+            {
+                case RangedCustomerState.Chasing:
+                    ChaseChef();
+                    break;
+                case RangedCustomerState.Attacking:
+                    if (Time.time >= lastAttackTime + characterData.attackCooldown)
+                    {
+                        Attack();
+                    }
+                    break;
+            }
+        }
+
         protected override void ChaseChef()
         {
             if (chefTransform == null) return;
 
-            float distanceToChef = Vector2.Distance(transform.position, chefTransform.position);
-
-            if (distanceToChef > attackRange)
-            {
-                // Chase the Chef if not within attack range
-                Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-                transform.position += (Vector3)directionToChef * characterData.moveSpeed * Time.deltaTime;
-            }
-            else
-            {
-                // Within attack range, so stop moving and prepare to attack
-                if (Time.time >= lastAttackTime + characterData.attackCooldown)
-                {
-                    Attack();
-                }
-            }
+            Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
+            transform.position += (Vector3)directionToChef * characterData.moveSpeed * Time.deltaTime;
         }
 
         protected override void Attack()
@@ -40,6 +53,22 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             projectile.SetDamage(characterData.damage);
 
             lastAttackTime = Time.time;
+        }
+
+        private void DetermineState()
+        {
+            if (chefTransform == null) return;
+
+            float distanceToChef = Vector2.Distance(transform.position, chefTransform.position);
+
+            if (distanceToChef > attackRange)
+            {
+                currentState = RangedCustomerState.Chasing;
+            }
+            else
+            {
+                currentState = RangedCustomerState.Attacking;
+            }
         }
     }
 }

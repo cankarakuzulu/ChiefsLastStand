@@ -6,6 +6,28 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 {
     public class MeleeCustomer : Customer
     {
+        private enum MeleeCustomerState
+        {
+            Chasing,
+            Attacking
+        }
+
+        private MeleeCustomerState currentState = MeleeCustomerState.Chasing;
+
+        protected void Update()
+        {
+            switch (currentState)
+            {
+                case MeleeCustomerState.Chasing:
+                    ChaseChef();
+                    break;
+
+                case MeleeCustomerState.Attacking:
+                    // Attack will be handled in OnCollisionStay2D
+                    break;
+            }
+        }
+
         protected override void ChaseChef()
         {
             if (chefTransform == null) return;
@@ -19,9 +41,17 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             // Melee attack will be handled in OnCollisionEnter2D
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Chef"))
+            {
+                currentState = MeleeCustomerState.Attacking;
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Chef") && currentState == MeleeCustomerState.Attacking)
             {
                 if (Time.time >= lastAttackTime + characterData.attackCooldown)
                 {
@@ -30,6 +60,14 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     chef.TakeDamage(characterData.damage);
                     lastAttackTime = Time.time;
                 }
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Chef"))
+            {
+                currentState = MeleeCustomerState.Chasing;
             }
         }
     }

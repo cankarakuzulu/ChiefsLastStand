@@ -25,13 +25,6 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             }
         }
 
-        protected virtual void Update()
-        {
-            ChaseChef();
-
-            // The attack logic with its cooldown will be handled in the derived classes
-        }
-
         protected abstract void ChaseChef();
         protected abstract void Attack();
     }
