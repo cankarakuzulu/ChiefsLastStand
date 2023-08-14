@@ -7,6 +7,13 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 {
     public abstract class Customer : Character
     {
+        protected enum CustomerState
+        {
+            Chasing,
+            Attacking
+        }
+
+        protected CustomerState currentState;
         protected Transform chefTransform;
         protected float lastAttackTime = float.MinValue;
 
@@ -25,6 +32,21 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             }
         }
 
+        protected virtual void Update()
+        {
+            UpdateState();
+            switch (currentState)
+            {
+                case CustomerState.Chasing:
+                    ChaseChef();
+                    break;
+                case CustomerState.Attacking:
+                    Attack();
+                    break;
+            }
+        }
+
+        protected abstract void UpdateState();
         protected abstract void ChaseChef();
         protected abstract void Attack();
     }

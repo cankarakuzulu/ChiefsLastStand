@@ -15,5 +15,5 @@ MonoBehaviour:
   health: 10
   damage: 1
   moveSpeed: 2
-  attackCooldown: 1
+  attackCooldown: 0.2
   attackRange: 3

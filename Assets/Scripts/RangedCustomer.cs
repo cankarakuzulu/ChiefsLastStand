@@ -10,64 +10,32 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         [SerializeField] private GameObject rangedProjectilePrefab;
         [SerializeField] private float attackRange;
 
-        private enum RangedCustomerState
+        protected override void UpdateState()
         {
-            Chasing,
-            Attacking
-        }
+            if (chefTransform == null) return;
 
-        private RangedCustomerState currentState = RangedCustomerState.Chasing;
+            float distanceToChef = Vector2.Distance(transform.position, chefTransform.position);
 
-        protected void Update()
-        {
-            DetermineState();
-
-            switch (currentState)
-            {
-                case RangedCustomerState.Chasing:
-                    ChaseChef();
-                    break;
-                case RangedCustomerState.Attacking:
-                    if (Time.time >= lastAttackTime + characterData.attackCooldown)
-                    {
-                        Attack();
-                    }
-                    break;
-            }
+            currentState = distanceToChef <= attackRange ? CustomerState.Attacking : CustomerState.Chasing;
         }
 
         protected override void ChaseChef()
         {
-            if (chefTransform == null) return;
-
             Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
             transform.position += (Vector3)directionToChef * characterData.moveSpeed * Time.deltaTime;
         }
 
         protected override void Attack()
         {
-            GameObject projectileGO = Instantiate(rangedProjectilePrefab, transform.position, Quaternion.identity);
-            CustomerProjectile projectile = projectileGO.GetComponent<CustomerProjectile>();
-            Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-            projectile.SetMoveDirection(directionToChef);
-            projectile.SetDamage(characterData.damage);
-
-            lastAttackTime = Time.time;
-        }
-
-        private void DetermineState()
-        {
-            if (chefTransform == null) return;
-
-            float distanceToChef = Vector2.Distance(transform.position, chefTransform.position);
-
-            if (distanceToChef > attackRange)
+            if (Time.time >= lastAttackTime + characterData.attackCooldown && chefTransform != null)
             {
-                currentState = RangedCustomerState.Chasing;
-            }
-            else
-            {
-                currentState = RangedCustomerState.Attacking;
+                GameObject projectileGO = Instantiate(rangedProjectilePrefab, transform.position, Quaternion.identity);
+                CustomerProjectile projectile = projectileGO.GetComponent<CustomerProjectile>();
+                Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
+                projectile.SetMoveDirection(directionToChef);
+                projectile.SetDamage(characterData.damage);
+
+                lastAttackTime = Time.time;
             }
         }
     }
