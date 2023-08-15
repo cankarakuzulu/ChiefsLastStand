@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Data.ChefData;
+using nopact.ChefsLastStand.Upgrades;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
@@ -9,6 +10,8 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
     {
         [SerializeField] private ChefData chefData;
         public ChefData ChefData => chefData;
+
+        [SerializeField] private UpgradeManager upgradeManager;
 
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
@@ -35,6 +38,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         private void LevelUp()
         {
             currentLevel++;
+            upgradeManager.OnChefLevelUp();
         }
 
         public int GetTotalCoinsCollected()
