@@ -25,7 +25,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         protected override void Update()
         {
-            base.Update();  // Call the base class Update
+            base.Update();
 
             // Check if Chef is out of range and transition to Moving state
             if (Vector2.Distance(transform.position, chefTransform.position) > normalAttackRange && currentState != BossState.Moving)
@@ -34,11 +34,19 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             }
         }
 
-        protected override void IdleBehavior() { /* Idle behavior, animations, etc. */ }
+        protected override void IdleBehavior() {}
 
-        protected override void AttackBehavior() { /* Empty as Attack is now handled in coroutine */ }
+        protected override void AttackBehavior()
+        {
+            ShootProjectileAtAngle(0);
+        }
 
-        protected override void SpecialAttackBehavior() { /* Empty as Special Attack is now handled in coroutine */ }
+        protected override void SpecialAttackBehavior()
+        {
+            ShootProjectileAtAngle(0);
+            ShootProjectileAtAngle(specialAttackSpreadAngle);
+            ShootProjectileAtAngle(-specialAttackSpreadAngle);
+        }
 
         protected override void MoveBehavior()
         {
@@ -56,7 +64,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             while (true)
             {
                 yield return new WaitUntil(() => Vector2.Distance(transform.position, chefTransform.position) <= normalAttackRange);
-                Attack();
+                AttackBehavior();
                 yield return new WaitForSeconds(characterData.attackCooldown);
             }
         }
@@ -66,22 +74,8 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             while (true)
             {
                 yield return new WaitForSeconds(specialAttackInterval);
-                SpecialAttack();
+                SpecialAttackBehavior();
             }
-        }
-
-        private void Attack()
-        {
-            // Normal attack logic
-            ShootProjectileAtAngle(0);
-        }
-
-        private void SpecialAttack()
-        {
-            // Special attack logic
-            ShootProjectileAtAngle(0); // Middle
-            ShootProjectileAtAngle(specialAttackSpreadAngle); // Left
-            ShootProjectileAtAngle(-specialAttackSpreadAngle); // Right
         }
 
         private void ShootProjectileAtAngle(float angle)
