@@ -7,6 +7,8 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 {
     public abstract class Customer : Character
     {
+        [SerializeField] private GameObject coinPrefab;
+
         protected enum CustomerState
         {
             Chasing,
@@ -44,6 +46,12 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     Attack();
                     break;
             }
+        }
+
+        protected override void Die()
+        {
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
 
         protected abstract void UpdateState();

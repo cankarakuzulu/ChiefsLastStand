@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: c7528a84ee38e6c40b273f0173497ef7, type: 2}
+  coinPrefab: {fileID: 6128292941993629617, guid: 3d5ffa707fa48914db64d020f53304b6, type: 3}
