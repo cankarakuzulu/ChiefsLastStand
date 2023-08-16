@@ -2,28 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Gameplay.Entities;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
     public class UpgradeManager : MonoBehaviour
     {
         public List<Upgrade> allUpgrades; 
-        private List<Upgrade> currentOptions = new List<Upgrade>(); 
+        private List<Upgrade> currentOptions = new List<Upgrade>();
+
+        [Header("UI References")]
+        public GameObject upgradePanel;
+        public UpgradeUIOption[] upgradeUIOptions = new UpgradeUIOption[3];
 
         public void OnChefLevelUp()
         {
-            // Select 3 random upgrades from the list
             currentOptions.Clear();
+
+            List<Upgrade> tempUpgradeList = new List<Upgrade>(allUpgrades);
 
             for (int i = 0; i < 3; i++)
             {
-                Upgrade randomUpgrade = allUpgrades[Random.Range(0, allUpgrades.Count)];
+                Upgrade randomUpgrade = tempUpgradeList[Random.Range(0, tempUpgradeList.Count)];
                 currentOptions.Add(randomUpgrade);
-                allUpgrades.Remove(randomUpgrade);
+                tempUpgradeList.Remove(randomUpgrade);
             }
 
-            // will implement upgrade selection UI later
-            // (UI should be able to access currentOptions to display the options to the player)
+            DisplayUpgradeOptions();
+        }
+
+        private void DisplayUpgradeOptions()
+        {
+            for (int i = 0; i < currentOptions.Count; i++)
+            {
+                upgradeUIOptions[i].optionIndex = i;
+                upgradeUIOptions[i].SetOption(currentOptions[i], ApplySelectedUpgrade);
+            }
+
+            upgradePanel.SetActive(true);
         }
 
         public void ApplySelectedUpgrade(int index)
@@ -31,8 +48,24 @@ namespace nopact.ChefsLastStand.Upgrades
             Chef chef = FindObjectOfType<Chef>();
             currentOptions[index].ApplyUpgrade(chef);
 
-            // Optionally, put the used upgrade back to the allUpgrades list
-            // allUpgrades.Add(currentOptions[index]);
+            upgradePanel.SetActive(false);
+        }
+    }
+
+    [System.Serializable]
+    public class UpgradeUIOption
+    {
+        public TMP_Text upgradeNameText;
+        public TMP_Text descriptionText;
+        public Button selectButton;
+        public int optionIndex;
+
+        public void SetOption(Upgrade upgrade, System.Action<int> callback)
+        {
+            upgradeNameText.text = upgrade.upgradeName;
+            descriptionText.text = upgrade.description;
+            selectButton.onClick.RemoveAllListeners();
+            selectButton.onClick.AddListener(() => callback(optionIndex));
         }
     }
 }

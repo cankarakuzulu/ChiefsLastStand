@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e8207b7b85bdd4f812783f590b1b67, type: 3}
   m_Name: New Speed Upgrade
   m_EditorClassIdentifier: 
-  upgradeName: speed upgrade
+  upgradeName: fast chef
   upgradeIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   description: faster chef
   speedMultiplier: 1.5

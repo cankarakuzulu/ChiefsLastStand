@@ -12,7 +12,7 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public override void ApplyUpgrade(Chef chef)
         {
-            chef.characterData.moveSpeed *= speedMultiplier;
+            chef.ChefData.moveSpeed *= speedMultiplier;
         }
     }
 }
