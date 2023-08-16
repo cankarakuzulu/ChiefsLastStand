@@ -8,22 +8,35 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 {
     public class Chef : Character
     {
-        [SerializeField] private ChefData chefData;
-        public ChefData ChefData => chefData;
-
+        [SerializeField] private ChefData defaultChefData; // This remains unchanged
+        [SerializeField] private ChefData currentChefData; // This changes with upgrades
         [SerializeField] private UpgradeManager upgradeManager;
+
+        public ChefData ChefData => currentChefData;
 
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
         private int currentLevel = 1;
 
         private int coinsForLevelUp => currentLevel * 3;
+        public int CurrentLevel => currentLevel;
+
+        public delegate void CoinCollectedHandler(int currentCoins, int coinsNeededForLevelUp);
+        public event CoinCollectedHandler OnCoinCollected;
+
+        protected override void Start()
+        {
+            base.Start();
+            ResetToDefaultStats();
+        }
 
         public void CollectCoin()
         {
             coinsCollected++;
             totalCoinsCollected++;
             CheckForLevelUp();
+
+            OnCoinCollected?.Invoke(coinsCollected, coinsForLevelUp);
         }
 
         private void CheckForLevelUp()
@@ -44,6 +57,15 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         public int GetTotalCoinsCollected()
         {
             return totalCoinsCollected;
+        }
+
+        private void ResetToDefaultStats()
+        {
+            currentChefData.health = defaultChefData.health;
+            currentChefData.damage = defaultChefData.damage;
+            currentChefData.moveSpeed = defaultChefData.moveSpeed;
+            currentChefData.attackCooldown = defaultChefData.attackCooldown;
+            currentChefData.attackRange = defaultChefData.attackRange;
         }
     }
 }
