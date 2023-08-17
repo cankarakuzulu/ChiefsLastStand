@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dcda5cfd4143b24892ae88361e0b1f7, type: 3}
+  m_Name: Delicious Food III
+  m_EditorClassIdentifier: 
+  upgradeName: Delicious Food III
+  upgradeIcon: {fileID: 0}
+  description: Burger damage +30%
+  upgradeType: 0
+  level: 3
+  damageBoostPercent: 30

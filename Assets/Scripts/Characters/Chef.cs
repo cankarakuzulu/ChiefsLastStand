@@ -9,7 +9,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
     public class Chef : Character
     {
         [SerializeField] private ChefData defaultChefData; // This remains unchanged
-        [SerializeField] private ChefData currentChefData; // This changes with upgrades
+        private ChefData currentChefData; // This changes with upgrades
         [SerializeField] private UpgradeManager upgradeManager;
 
         public ChefData ChefData => currentChefData;
@@ -61,11 +61,17 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         private void ResetToDefaultStats()
         {
+            currentChefData = ScriptableObject.CreateInstance<ChefData>();
             currentChefData.health = defaultChefData.health;
             currentChefData.damage = defaultChefData.damage;
             currentChefData.moveSpeed = defaultChefData.moveSpeed;
             currentChefData.attackCooldown = defaultChefData.attackCooldown;
             currentChefData.attackRange = defaultChefData.attackRange;
+            currentChefData.defense = defaultChefData.defense;
+            currentChefData.evasion = defaultChefData.evasion;
+            currentChefData.maxHealth = defaultChefData.maxHealth;
+            currentChefData.pickUpArea = defaultChefData.pickUpArea;
+            currentChefData.burgerCount = defaultChefData.burgerCount;
         }
     }
 }

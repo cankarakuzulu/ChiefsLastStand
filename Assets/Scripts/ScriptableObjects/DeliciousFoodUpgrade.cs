@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Speed Upgrade")]
-    public class SpeedUpgrade : Upgrade
+    [CreateAssetMenu(menuName = "Upgrades/Delicious Food Upgrade")]
+    public class DeliciousFoodUpgrade : Upgrade
     {
-        public float speedBoostPercent;
+        public float damageBoostPercent;
 
         public override void ApplyUpgrade(Chef chef)
         {
-            chef.ChefData.moveSpeed += chef.ChefData.moveSpeed * (speedBoostPercent / 100);
+            chef.ChefData.damage += chef.ChefData.damage * (damageBoostPercent / 100);
         }
     }
 }

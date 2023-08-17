@@ -246,8 +246,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allUpgrades:
   - {fileID: 11400000, guid: 00f9190f911d70b47bb804e430063d61, type: 2}
-  - {fileID: 11400000, guid: 00f9190f911d70b47bb804e430063d61, type: 2}
-  - {fileID: 11400000, guid: 00f9190f911d70b47bb804e430063d61, type: 2}
+  - {fileID: 11400000, guid: 950e6c8ac5ec0f74985d6b2457520249, type: 2}
+  - {fileID: 11400000, guid: ca1cc214d8932ef41ae88bd8cc90624f, type: 2}
+  - {fileID: 11400000, guid: 47a6b5063606d8747b0be0255bc19a88, type: 2}
+  - {fileID: 11400000, guid: 0e9b61b87c4a22f45ad02b793997b8aa, type: 2}
+  - {fileID: 11400000, guid: 23d731dec5f58c047b8ebbb8cec31f9e, type: 2}
+  - {fileID: 11400000, guid: b6975c8f8d995154dbda92f46b097851, type: 2}
+  - {fileID: 11400000, guid: 6f5476cd09ba6024f8272e7154a3b878, type: 2}
+  - {fileID: 11400000, guid: 6090836ee1573c949a8257bdd6ceb36b, type: 2}
+  - {fileID: 11400000, guid: baf4ecdaf211ae84f81eedd3fdbc8662, type: 2}
+  - {fileID: 11400000, guid: e293b4183a05cb842bb67074427f6335, type: 2}
+  - {fileID: 11400000, guid: 98e73c54008ef744088cde292b498c2e, type: 2}
+  - {fileID: 11400000, guid: ebf124a767d99244596e52c4705ef42f, type: 2}
+  - {fileID: 11400000, guid: fb8285b394cfed244be699e41b820d52, type: 2}
+  - {fileID: 11400000, guid: 880f3622a854b80458acbcb68960e4f4, type: 2}
   upgradePanel: {fileID: 1394658790}
   upgradeUIOptions:
   - upgradeNameText: {fileID: 1394658789}

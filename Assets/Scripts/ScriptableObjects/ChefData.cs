@@ -8,5 +8,10 @@ namespace nopact.ChefsLastStand.Data.ChefData
     public class ChefData : CharacterData
     {
         public float attackRange;
+        public float defense;
+        public float evasion;
+        public float maxHealth;
+        public float pickUpArea;
+        public int burgerCount;
     }
 }
