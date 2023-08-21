@@ -13,6 +13,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         [SerializeField] private UpgradeManager upgradeManager;
 
         public ChefData ChefData => currentChefData;
+        public ChefData ChefDefautStats => defaultChefData;
 
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;

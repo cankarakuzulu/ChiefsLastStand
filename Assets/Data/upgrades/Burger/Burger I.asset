@@ -9,16 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b6febf63cc99144fae9314ed361cbe1, type: 3}
-  m_Name: Chef Stats
+  m_Script: {fileID: 11500000, guid: 877ccb98b5ad5d146944fcd71980f992, type: 3}
+  m_Name: Burger I
   m_EditorClassIdentifier: 
-  health: 10
-  damage: 1
-  moveSpeed: 2.25
-  attackCooldown: 0.2
-  attackRange: 3
-  defense: 0
-  evasion: 0
-  maxHealth: 10
-  pickUpArea: 0
-  burgerCount: 0
+  upgradeName: Burger I
+  upgradeIcon: {fileID: 0}
+  description: Burger +1
+  upgradeType: 7
+  level: 1
+  extraBurgerCount: 1

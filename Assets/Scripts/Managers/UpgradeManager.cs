@@ -13,7 +13,7 @@ namespace nopact.ChefsLastStand.Upgrades
         DeliciousFood,
         FastFood,
         Speed,
-        Defence,
+        Defense,
         Evasion,
         MaxHP,
         PickUpArea,

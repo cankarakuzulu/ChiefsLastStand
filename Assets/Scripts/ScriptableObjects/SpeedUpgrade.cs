@@ -13,6 +13,7 @@ namespace nopact.ChefsLastStand.Upgrades
         public override void ApplyUpgrade(Chef chef)
         {
             chef.ChefData.moveSpeed += chef.ChefData.moveSpeed * (speedBoostPercent / 100);
+            Debug.Log("Applied speed to chef. New stat is: " + chef.ChefData.moveSpeed);
         }
     }
 }

@@ -12,7 +12,8 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public override void ApplyUpgrade(Chef chef)
         {
-            chef.ChefData.attackCooldown -= chef.ChefData.attackCooldown * (cooldownReductionPercent / 100);
+            chef.ChefData.attackCooldown = chef.ChefDefautStats.attackCooldown - chef.ChefDefautStats.attackCooldown * (cooldownReductionPercent / 100);
+            Debug.Log("Applied speed to chef. New stat is: " + chef.ChefData.attackCooldown);
         }
     }
 }

@@ -12,7 +12,8 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public override void ApplyUpgrade(Chef chef)
         {
-            chef.ChefData.damage += chef.ChefData.damage * (damageBoostPercent / 100);
+            chef.ChefData.damage = chef.ChefDefautStats.damage + chef.ChefDefautStats.damage * (damageBoostPercent / 100);
+            Debug.Log("Applied speed to chef. New stat is: " + chef.ChefData.damage);
         }
     }
 }
