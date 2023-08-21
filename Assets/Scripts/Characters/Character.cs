@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public class Character : MonoBehaviour
+    public abstract class Character : MonoBehaviour
     {
         public CharacterData characterData;
 
@@ -28,6 +28,17 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             {
                 Die();
             }
+            Debug.Log(this.name + "'s health is: " + health);
+        }
+
+        public virtual void Heal(float hp)
+        {
+            health += hp;
+            if (health >= characterData.health)
+            {
+                health = characterData.health;
+            }
+            Debug.Log(this.name + "'s health is: " + health);
         }
 
         protected virtual void Die()

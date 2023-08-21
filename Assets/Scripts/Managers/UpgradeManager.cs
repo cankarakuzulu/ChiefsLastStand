@@ -7,6 +7,19 @@ using TMPro;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
+    public enum UpgradeType
+    {
+        //stat upgrades
+        DeliciousFood,
+        FastFood,
+        Speed,
+        Defense,
+        Evasion,
+        MaxHP,
+        PickUpArea,
+        Burger,
+        //skills will be added later
+    }
     public class UpgradeManager : MonoBehaviour
     {
         public List<Upgrade> allUpgrades; 
@@ -16,11 +29,15 @@ namespace nopact.ChefsLastStand.Upgrades
         public GameObject upgradePanel;
         public UpgradeUIOption[] upgradeUIOptions = new UpgradeUIOption[3];
 
+        private Dictionary<UpgradeType, int> currentUpgrades = new Dictionary<UpgradeType, int>();
+
         public void OnChefLevelUp()
         {
             currentOptions.Clear();
 
-            List<Upgrade> tempUpgradeList = new List<Upgrade>(allUpgrades);
+            List<Upgrade> tempUpgradeList = EligibleUpgrades();
+
+            //List<Upgrade> tempUpgradeList = new List<Upgrade>(allUpgrades);
 
             for (int i = 0; i < 3; i++)
             {
@@ -30,6 +47,25 @@ namespace nopact.ChefsLastStand.Upgrades
             }
 
             DisplayUpgradeOptions();
+        }
+
+        private List<Upgrade> EligibleUpgrades()
+        {
+            List<Upgrade> eligibleUpgrades = new List<Upgrade>();
+            foreach (var upgrade in allUpgrades)
+            {
+                int currentLevel = GetUpgradeLevel(upgrade.upgradeType);
+                if (upgrade.level == currentLevel + 1)
+                {
+                    eligibleUpgrades.Add(upgrade);
+                }
+            }
+            return eligibleUpgrades;
+        }
+
+        private int GetUpgradeLevel(UpgradeType type)
+        {
+            return currentUpgrades.TryGetValue(type, out int level) ? level : 0;
         }
 
         private void DisplayUpgradeOptions()
@@ -47,6 +83,16 @@ namespace nopact.ChefsLastStand.Upgrades
         {
             Chef chef = FindObjectOfType<Chef>();
             currentOptions[index].ApplyUpgrade(chef);
+
+            // Track the applied upgrade's level
+            if (currentUpgrades.ContainsKey(currentOptions[index].upgradeType))
+            {
+                currentUpgrades[currentOptions[index].upgradeType] = currentOptions[index].level;
+            }
+            else
+            {
+                currentUpgrades.Add(currentOptions[index].upgradeType, currentOptions[index].level);
+            }
 
             upgradePanel.SetActive(false);
         }

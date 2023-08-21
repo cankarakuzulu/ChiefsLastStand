@@ -9,16 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b6febf63cc99144fae9314ed361cbe1, type: 3}
-  m_Name: Chef Stats
+  m_Script: {fileID: 11500000, guid: 80e8207b7b85bdd4f812783f590b1b67, type: 3}
+  m_Name: Speed Upgrade III
   m_EditorClassIdentifier: 
-  health: 10
-  damage: 1
-  moveSpeed: 2.25
-  attackCooldown: 0.2
-  attackRange: 3
-  defense: 0
-  evasion: 0
-  maxHealth: 10
-  pickUpArea: 0
-  burgerCount: 0
+  upgradeName: Speed III
+  upgradeIcon: {fileID: 0}
+  description: chef speed +30%
+  upgradeType: 2
+  level: 3
+  speedBoostPercent: 30

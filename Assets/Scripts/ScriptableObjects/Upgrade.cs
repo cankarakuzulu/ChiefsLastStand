@@ -10,6 +10,8 @@ namespace nopact.ChefsLastStand.Upgrades
         public string upgradeName;
         public Sprite upgradeIcon;
         public string description;
+        public UpgradeType upgradeType;
+        public int level;
 
         public abstract void ApplyUpgrade(Chef chef);
     }
