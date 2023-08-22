@@ -18,6 +18,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
         private int currentLevel = 1;
+        private GameObject currentHeatWaveAura;
 
         private int coinsForLevelUp => currentLevel * 3;
         public int CurrentLevel => currentLevel;
@@ -58,6 +59,18 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         public int GetTotalCoinsCollected()
         {
             return totalCoinsCollected;
+        }
+
+        public void ApplyHeatWaveSkill(HeatwaveUpgrade skill)
+        {
+            if (currentHeatWaveAura != null)
+            {
+                Destroy(currentHeatWaveAura);
+            }
+
+            currentHeatWaveAura = Instantiate(skill.heatWaveCirclePrefab, transform.position, Quaternion.identity, transform);
+            var auraScript = currentHeatWaveAura.GetComponent<HeatWaveAura>();
+            auraScript.SetDamage(skill.damagePerSecond);
         }
 
         private void ResetToDefaultStats()

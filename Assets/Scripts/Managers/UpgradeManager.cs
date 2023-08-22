@@ -18,7 +18,8 @@ namespace nopact.ChefsLastStand.Upgrades
         MaxHP,
         PickUpArea,
         Burger,
-        //skills will be added later
+        //skills
+        HeatWave,
     }
     public class UpgradeManager : MonoBehaviour
     {
