@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Burger Upgrade")]
+    [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Burger Upgrade")]
     public class BurgerUpgrade : Upgrade
     {
         public int extraBurgerCount;

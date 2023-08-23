@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Speed Upgrade")]
+    [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Speed Upgrade")]
     public class SpeedUpgrade : Upgrade
     {
         public float speedBoostPercent;

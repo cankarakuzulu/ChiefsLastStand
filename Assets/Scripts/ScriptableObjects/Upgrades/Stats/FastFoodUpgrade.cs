@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Fast Food Upgrade")]
+    [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Fast Food Upgrade")]
     public class FastFoodUpgrade : Upgrade
     {
         public float cooldownReductionPercent;

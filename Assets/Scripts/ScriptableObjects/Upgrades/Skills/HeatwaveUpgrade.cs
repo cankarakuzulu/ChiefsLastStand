@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Heat Wave Skill Upgrade")]
+    [CreateAssetMenu(menuName = "Upgrades/Skill Upgrades/Heat Wave Skill")]
     public class HeatwaveUpgrade : Upgrade
     {
         public GameObject heatWaveCirclePrefab;

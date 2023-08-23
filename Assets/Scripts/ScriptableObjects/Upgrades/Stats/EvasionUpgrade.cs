@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Upgrades
 {
-    [CreateAssetMenu(menuName = "Upgrades/Evasion Upgrade")]
+    [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Evasion Upgrade")]
     public class EvasionUpgrade : Upgrade
     {
         public float evasion;

@@ -20,6 +20,7 @@ namespace nopact.ChefsLastStand.Upgrades
         Burger,
         //skills
         HeatWave,
+        Pizza,
     }
     public class UpgradeManager : MonoBehaviour
     {

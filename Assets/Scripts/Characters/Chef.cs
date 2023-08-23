@@ -18,7 +18,9 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
         private int currentLevel = 1;
+
         private GameObject currentHeatWaveAura;
+        private Pizza currentPizza;
 
         private int coinsForLevelUp => currentLevel * 3;
         public int CurrentLevel => currentLevel;
@@ -71,6 +73,17 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             currentHeatWaveAura = Instantiate(skill.heatWaveCirclePrefab, transform.position, Quaternion.identity, transform);
             var auraScript = currentHeatWaveAura.GetComponent<HeatWaveAura>();
             auraScript.SetDamage(skill.damagePerSecond);
+        }
+
+        public void ActivatePizzaSkill(PizzaSkill skill)
+        {
+            if (currentPizza != null)
+            {
+                Destroy(currentPizza);
+            }
+
+            currentPizza = gameObject.AddComponent<Pizza>();
+            currentPizza.ActivatePizzaSkill(skill);
         }
 
         private void ResetToDefaultStats()
