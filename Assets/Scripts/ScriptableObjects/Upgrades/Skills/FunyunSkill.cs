@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Gameplay.Entities;
@@ -16,7 +17,14 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public override void ApplyUpgrade(Chef chef)
         {
-            chef.ApplyFunyunSkill(this);
+            Action funyunSkillAction = () =>
+            {
+                GameObject funyunInstance = Instantiate(funyunsPrefab, chef.transform.position, Quaternion.identity);
+                Funyun funyunScript = funyunInstance.GetComponent<Funyun>();
+                funyunScript.Initialize(this, chef.transform.position);
+            };
+
+            chef.ApplySkillWithRoutine(chef.SkillRoutine(funyunSkillAction, cooldown));
         }
     }
 }

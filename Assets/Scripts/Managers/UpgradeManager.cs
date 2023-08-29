@@ -9,7 +9,7 @@ namespace nopact.ChefsLastStand.Upgrades
 {
     public enum UpgradeType
     {
-        //stat upgrades
+        //Passive Skills
         DeliciousFood,
         FastFood,
         Speed,
@@ -17,11 +17,12 @@ namespace nopact.ChefsLastStand.Upgrades
         Evasion,
         MaxHP,
         PickUpArea,
+        //Active Skills
         Burger,
-        //skills
         HeatWave,
         Pizza,
         Funyun,
+        BuffetTable,
     }
     public class UpgradeManager : MonoBehaviour
     {
