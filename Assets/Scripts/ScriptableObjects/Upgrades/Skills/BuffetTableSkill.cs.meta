@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9ff19040ef266f645bb718668145e8e8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - upgradeIcon: {instanceID: 0}
+  - buffetTablePrefab: {fileID: 2903383772629566622, guid: f9ea917da85778545a256597e09c767d, type: 3}
+  - damageAreaPrefab: {fileID: 6818200039918512268, guid: f750aa340db65a2499540c58eda5f5e1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

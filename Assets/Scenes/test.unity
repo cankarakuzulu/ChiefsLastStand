@@ -1173,6 +1173,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: caf38fd0791fcbb4d98c3a0618c10d72, type: 2}
   - {fileID: 11400000, guid: afa95d46b79049845ac1ab636de8f616, type: 2}
   - {fileID: 11400000, guid: 8e94c561e4db64f4d84402ffe6b0ba48, type: 2}
+  - {fileID: 11400000, guid: 45bc492f65b42c249a7a3515d010e2c1, type: 2}
+  - {fileID: 11400000, guid: 89402a530c1168c489d0efec19d4c1ba, type: 2}
+  - {fileID: 11400000, guid: 63586a5b70a391c41abd49eaabf6f2c2, type: 2}
+  - {fileID: 11400000, guid: 63c8e01c74dfa8b4c83b184d91b9254c, type: 2}
+  - {fileID: 11400000, guid: 98cc858ba5edf5e418ce6bc4c028e906, type: 2}
   upgradePanel: {fileID: 1052134757}
   upgradeUIOptions:
   - upgradeNameText: {fileID: 1052134756}

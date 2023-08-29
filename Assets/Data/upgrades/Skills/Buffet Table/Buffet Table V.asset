@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff19040ef266f645bb718668145e8e8, type: 3}
+  m_Name: Buffet Table V
+  m_EditorClassIdentifier: 
+  upgradeName: Buffet Table I
+  upgradeIcon: {fileID: 0}
+  description: throw buffet table
+  upgradeType: 11
+  level: 1
+  damage: 2
+  radius: 1
+  cooldown: 1
+  buffetTablePrefab: {fileID: 2903383772629566622, guid: f9ea917da85778545a256597e09c767d, type: 3}
+  damageAreaPrefab: {fileID: 6818200039918512268, guid: f750aa340db65a2499540c58eda5f5e1, type: 3}

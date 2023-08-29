@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Data.ChefData;
@@ -21,7 +22,6 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         private GameObject currentHeatWaveAura;
         private Pizza currentPizza;
-        private Coroutine funyunThrowCoroutine;
 
         private int coinsForLevelUp => currentLevel * 3;
         public int CurrentLevel => currentLevel;
@@ -64,6 +64,20 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             return totalCoinsCollected;
         }
 
+        public void ApplySkillWithRoutine(IEnumerator routine)
+        {
+            StartCoroutine(routine);
+        }
+
+        public IEnumerator SkillRoutine(Action skillAction, float cooldown)
+        {
+            while (true)
+            {
+                skillAction();
+                yield return new WaitForSeconds(cooldown);
+            }
+        }
+
         public void ApplyHeatWaveSkill(HeatwaveUpgrade skill)
         {
             if (currentHeatWaveAura != null)
@@ -85,25 +99,6 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
             currentPizza = gameObject.AddComponent<Pizza>();
             currentPizza.ActivatePizzaSkill(skill);
-        }
-        public void ApplyFunyunSkill(FunyunSkill skill)
-        {
-            if (funyunThrowCoroutine != null)
-            {
-                StopCoroutine(funyunThrowCoroutine);
-            }
-            funyunThrowCoroutine = StartCoroutine(FunyunsThrowRoutine(skill));
-        }
-
-        private IEnumerator FunyunsThrowRoutine(FunyunSkill skill)
-        {
-            while (true)
-            {
-                GameObject funyunInstance = Instantiate(skill.funyunsPrefab, transform.position, Quaternion.identity);
-                Funyun funyunScript = funyunInstance.GetComponent<Funyun>();
-                funyunScript.Initialize(skill, transform.position);
-                yield return new WaitForSeconds(skill.cooldown);
-            }
         }
 
         private void ResetToDefaultStats()
