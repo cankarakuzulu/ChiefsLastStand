@@ -23,6 +23,7 @@ namespace nopact.ChefsLastStand.Upgrades
         Pizza,
         Funyun,
         BuffetTable,
+        HotSauce,
     }
     public class UpgradeManager : MonoBehaviour
     {

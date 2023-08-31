@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Data.CustomerData;
@@ -8,6 +9,9 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
     public abstract class Customer : Character
     {
         [SerializeField] private GameObject coinPrefab;
+
+        private float originalMoveSpeed;
+        private bool isSlowed = false;
 
         protected enum CustomerState
         {
@@ -22,6 +26,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected override void Start()
         {
             base.Start();
+            originalMoveSpeed = characterData.moveSpeed;
 
             GameObject chefObject = GameObject.FindWithTag("Chef");
             if (chefObject != null)
@@ -46,6 +51,29 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     Attack();
                     break;
             }
+        }
+
+        public void ApplySlowEffect(float slowEffect)
+        {
+            if (isSlowed) return;
+
+            StartCoroutine(SlowEffectCoroutine(slowEffect));
+        }
+
+        private IEnumerator SlowEffectCoroutine(float slowEffect)
+        {
+            isSlowed = true;
+
+            // Reduce the move speed
+            characterData.moveSpeed *= (1f - slowEffect);
+
+            // Stay slow for 5 seconds
+            yield return new WaitForSeconds(5f);
+
+            // Restore the original move speed
+            characterData.moveSpeed = originalMoveSpeed;
+
+            isSlowed = false;
         }
 
         protected override void Die()
