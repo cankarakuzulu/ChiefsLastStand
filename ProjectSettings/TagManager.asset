@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Chef
   - Customer
+  - CustomerSpawnPoint
   layers:
   - Default
   - TransparentFX
