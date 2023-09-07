@@ -12,16 +12,15 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         private float originalMoveSpeed;
         private bool isSlowed = false;
+        protected CustomerState currentState;
+        protected Transform chefTransform;
+        protected float lastAttackTime = float.MinValue;
 
         protected enum CustomerState
         {
             Chasing,
             Attacking
         }
-
-        protected CustomerState currentState;
-        protected Transform chefTransform;
-        protected float lastAttackTime = float.MinValue;
 
         protected override void Start()
         {

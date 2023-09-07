@@ -8,9 +8,10 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
 {
     public class HotSauceBottle : MonoBehaviour
     {
+        public float speed = 5f;
+
         private HotSauceSkill skill;
         private Vector3 targetPosition;
-        public float speed = 5f;
 
         public void Initialize(HotSauceSkill skill, Vector3 targetPosition)
         {

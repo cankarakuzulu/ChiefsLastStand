@@ -16,12 +16,6 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             Destroy(gameObject, 5f);   
         }
 
-        public void Initialize(float damagePerSecond, float slowEffect)
-        {
-            this.damagePerSecond = damagePerSecond;
-            this.slowEffect = slowEffect;
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Customer"))
@@ -44,6 +38,12 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
                     activeCustomers.Remove(customer);
                 }
             }
+        }
+
+        public void Initialize(float damagePerSecond, float slowEffect)
+        {
+            this.damagePerSecond = damagePerSecond;
+            this.slowEffect = slowEffect;
         }
 
         private IEnumerator DamageOverTime(Customer customer)

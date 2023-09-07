@@ -9,20 +9,18 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 {
     public class Chef : Character
     {
-        [SerializeField] private ChefData defaultChefData; // This remains unchanged
-        private ChefData currentChefData; // This changes with upgrades
+        [SerializeField] private ChefData defaultChefData;
         [SerializeField] private UpgradeManager upgradeManager;
 
-        public ChefData ChefData => currentChefData;
-        public ChefData ChefDefautStats => defaultChefData;
-
+        private ChefData currentChefData;
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
         private int currentLevel = 1;
-
         private GameObject currentHeatWaveAura;
         private Pizza currentPizza;
 
+        public ChefData ChefData => currentChefData;
+        public ChefData ChefDefautStats => defaultChefData;
         private int coinsForLevelUp => currentLevel * 3;
         public int CurrentLevel => currentLevel;
 
@@ -40,23 +38,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             coinsCollected++;
             totalCoinsCollected++;
             CheckForLevelUp();
-
             OnCoinCollected?.Invoke(coinsCollected, coinsForLevelUp);
-        }
-
-        private void CheckForLevelUp()
-        {
-            if (coinsCollected >= coinsForLevelUp)
-            {
-                LevelUp();
-                coinsCollected = 0;
-            }
-        }
-
-        private void LevelUp()
-        {
-            currentLevel++;
-            upgradeManager.OnChefLevelUp();
         }
 
         public int GetTotalCoinsCollected()
@@ -99,6 +81,21 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
             currentPizza = gameObject.AddComponent<Pizza>();
             currentPizza.ActivatePizzaSkill(skill);
+        }
+
+        private void CheckForLevelUp()
+        {
+            if (coinsCollected >= coinsForLevelUp)
+            {
+                LevelUp();
+                coinsCollected = 0;
+            }
+        }
+
+        private void LevelUp()
+        {
+            currentLevel++;
+            upgradeManager.OnChefLevelUp();
         }
 
         private void ResetToDefaultStats()

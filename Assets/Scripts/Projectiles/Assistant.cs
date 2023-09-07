@@ -8,11 +8,11 @@ namespace nopact.ChefsLastStand.Upgrades
 {
     public class Assistant : MonoBehaviour
     {
+        [SerializeField] private GameObject assistantBurgerPrefab;
+
         private AssistantSkill skill;
         private Chef chef;
         private float lastAttackTime;
-
-        public GameObject assistantBurgerPrefab; 
 
         public void Initialize(AssistantSkill skill, Chef chef)
         {

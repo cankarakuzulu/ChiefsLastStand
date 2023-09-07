@@ -12,22 +12,6 @@ namespace nopact.ChefsLastStand.Upgrades
         private FunyunSkill skill;
         private Transform chefTransform;
 
-        public void Initialize(FunyunSkill skill, Vector3 chefPosition)
-        {
-            this.skill = skill;
-            Customer target = FindNearestCustomer();
-
-            if (target != null)
-            {
-                direction = (target.transform.position - transform.position).normalized;
-                chefTransform = FindObjectOfType<Chef>().transform;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-
         private void Update()
         {
             transform.position += direction * skill.speed * Time.deltaTime;
@@ -45,18 +29,34 @@ namespace nopact.ChefsLastStand.Upgrades
             }
         }
 
-        private bool IsOutsideCameraView()
-        {
-            Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
-            return screenPoint.x < 0 || screenPoint.x > 1 || screenPoint.y < 0 || screenPoint.y > 1;
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Customer"))
             {
                 other.GetComponent<Customer>().TakeDamage(skill.damage);
             }
+        }
+
+        public void Initialize(FunyunSkill skill, Vector3 chefPosition)
+        {
+            this.skill = skill;
+            Customer target = FindNearestCustomer();
+
+            if (target != null)
+            {
+                direction = (target.transform.position - transform.position).normalized;
+                chefTransform = FindObjectOfType<Chef>().transform;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private bool IsOutsideCameraView()
+        {
+            Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
+            return screenPoint.x < 0 || screenPoint.x > 1 || screenPoint.y < 0 || screenPoint.y > 1;
         }
 
         private Customer FindNearestCustomer()

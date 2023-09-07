@@ -16,6 +16,16 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             Move();
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Chef"))
+            {
+                Chef chef = other.GetComponent<Chef>();
+                chef.TakeDamage(damage);
+                Destroy(gameObject);
+            }
+        }
+
         public void SetMoveDirection(Vector2 direction)
         {
             moveDirection = direction.normalized;
@@ -29,16 +39,6 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
         private void Move()
         {
             transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Chef"))
-            {
-                Chef chef = other.GetComponent<Chef>();
-                chef.TakeDamage(damage);
-                Destroy(gameObject);
-            }
         }
     }
 }

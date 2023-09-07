@@ -4,14 +4,15 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand
 {
-    [System.Serializable]
-    public class CustomerType
-    {
-        public GameObject customerPrefab;
-        public float spawnWeight;
-    }
     public class CustomerSpawner : MonoBehaviour
     {
+        [System.Serializable]
+        public class CustomerType
+        {
+            public GameObject customerPrefab;
+            public float spawnWeight;
+        }
+
         public List<CustomerType> customerTypes;
         public float spawnInterval = 5.0f;
 
@@ -31,21 +32,6 @@ namespace nopact.ChefsLastStand
             StartCoroutine(SpawnCustomers());
         }
 
-        IEnumerator SpawnCustomers()
-        {
-            while (true)
-            {
-                foreach (GameObject spawnPoint in spawnPoints)
-                {
-                    GameObject customerToSpawn = SelectRandomCustomer();
-
-                    Instantiate(customerToSpawn, spawnPoint.transform.position, Quaternion.identity);
-                }
-
-                yield return new WaitForSeconds(spawnInterval);
-            }
-        }
-
         GameObject SelectRandomCustomer()
         {
             float randomNumber = Random.Range(0, totalSpawnWeight);
@@ -61,6 +47,21 @@ namespace nopact.ChefsLastStand
             }
 
             return null;
+        }
+
+        IEnumerator SpawnCustomers()
+        {
+            while (true)
+            {
+                foreach (GameObject spawnPoint in spawnPoints)
+                {
+                    GameObject customerToSpawn = SelectRandomCustomer();
+
+                    Instantiate(customerToSpawn, spawnPoint.transform.position, Quaternion.identity);
+                }
+
+                yield return new WaitForSeconds(spawnInterval);
+            }
         }
     }
 }

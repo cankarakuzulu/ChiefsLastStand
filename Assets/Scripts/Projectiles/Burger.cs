@@ -30,15 +30,6 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
         {
             Move();
         }
-        public void SetInitialDirection(Vector2 direction)
-        {
-            moveDirection = direction;
-        }
-
-        private void Move()
-        {
-            transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -48,6 +39,16 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
                 customer.TakeDamage(damage);
                 Destroy(gameObject);
             }
+        }
+
+        public void SetInitialDirection(Vector2 direction)
+        {
+            moveDirection = direction;
+        }
+
+        private void Move()
+        {
+            transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
         }
     }
 }

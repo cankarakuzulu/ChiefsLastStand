@@ -28,13 +28,11 @@ namespace nopact.ChefsLastStand.Upgrades
     }
     public class UpgradeManager : MonoBehaviour
     {
-        public List<Upgrade> allUpgrades; 
-        private List<Upgrade> currentOptions = new List<Upgrade>();
-
-        [Header("UI References")]
+        public List<Upgrade> allUpgrades;
         public GameObject upgradePanel;
         public UpgradeUIOption[] upgradeUIOptions = new UpgradeUIOption[3];
 
+        private List<Upgrade> currentOptions = new List<Upgrade>();
         private Dictionary<UpgradeType, int> currentUpgrades = new Dictionary<UpgradeType, int>();
 
         public void OnChefLevelUp()
@@ -53,6 +51,24 @@ namespace nopact.ChefsLastStand.Upgrades
             }
 
             DisplayUpgradeOptions();
+        }
+
+        public void ApplySelectedUpgrade(int index)
+        {
+            Chef chef = FindObjectOfType<Chef>();
+            currentOptions[index].ApplyUpgrade(chef);
+
+            // Track the applied upgrade's level
+            if (currentUpgrades.ContainsKey(currentOptions[index].upgradeType))
+            {
+                currentUpgrades[currentOptions[index].upgradeType] = currentOptions[index].level;
+            }
+            else
+            {
+                currentUpgrades.Add(currentOptions[index].upgradeType, currentOptions[index].level);
+            }
+
+            upgradePanel.SetActive(false);
         }
 
         private List<Upgrade> EligibleUpgrades()
@@ -83,24 +99,6 @@ namespace nopact.ChefsLastStand.Upgrades
             }
 
             upgradePanel.SetActive(true);
-        }
-
-        public void ApplySelectedUpgrade(int index)
-        {
-            Chef chef = FindObjectOfType<Chef>();
-            currentOptions[index].ApplyUpgrade(chef);
-
-            // Track the applied upgrade's level
-            if (currentUpgrades.ContainsKey(currentOptions[index].upgradeType))
-            {
-                currentUpgrades[currentOptions[index].upgradeType] = currentOptions[index].level;
-            }
-            else
-            {
-                currentUpgrades.Add(currentOptions[index].upgradeType, currentOptions[index].level);
-            }
-
-            upgradePanel.SetActive(false);
         }
     }
 

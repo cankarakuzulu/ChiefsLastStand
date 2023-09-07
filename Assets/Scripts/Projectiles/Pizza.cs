@@ -10,7 +10,7 @@ namespace nopact.ChefsLastStand.Upgrades
         private GameObject[] activePizzas;
         private float rotationSpeed;
         private float damage;
-        private Coroutine pizzaSkillCoroutine;
+        private Coroutine pizzaSkillCoroutine;        
 
         public void ActivatePizzaSkill(PizzaSkill skill)
         {
@@ -22,6 +22,26 @@ namespace nopact.ChefsLastStand.Upgrades
             rotationSpeed = skill.rotationSpeed;
             damage = skill.damage;
             pizzaSkillCoroutine = StartCoroutine(PizzaSkillRoutine(skill));
+        }
+
+        private void Update()
+        {
+            if (activePizzas != null)
+            {
+                foreach (var pizza in activePizzas)
+                {
+                    pizza.transform.RotateAround(transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
+                }
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (pizzaSkillCoroutine != null)
+            {
+                StopCoroutine(pizzaSkillCoroutine);
+            }
+            DespawnPizzas();
         }
 
         private IEnumerator PizzaSkillRoutine(PizzaSkill skill)
@@ -54,16 +74,7 @@ namespace nopact.ChefsLastStand.Upgrades
             return Quaternion.Euler(angles) * (point - pivot) + pivot;
         }
 
-        private void Update()
-        {
-            if (activePizzas != null)
-            {
-                foreach (var pizza in activePizzas)
-                {
-                    pizza.transform.RotateAround(transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
-                }
-            }
-        }
+        
 
         private void DespawnPizzas()
         {
@@ -77,13 +88,6 @@ namespace nopact.ChefsLastStand.Upgrades
             }
         }
 
-        private void OnDisable()
-        {
-            if (pizzaSkillCoroutine != null)
-            {
-                StopCoroutine(pizzaSkillCoroutine);
-            }
-            DespawnPizzas();
-        }
+        
     } 
 }
