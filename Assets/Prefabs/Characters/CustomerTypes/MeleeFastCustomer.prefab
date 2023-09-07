@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8529123055691405581}
   - component: {fileID: 7860220514721516405}
   m_Layer: 0
-  m_Name: MeleeCustomer
+  m_Name: MeleeFastCustomer
   m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,5 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4b1bf28e694d41b18abf3b4eae945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 40ee64458a5382b4da53d91a2f67b484, type: 2}
+  characterData: {fileID: 11400000, guid: c7528a84ee38e6c40b273f0173497ef7, type: 2}
   coinPrefab: {fileID: 6128292941993629617, guid: 3d5ffa707fa48914db64d020f53304b6, type: 3}

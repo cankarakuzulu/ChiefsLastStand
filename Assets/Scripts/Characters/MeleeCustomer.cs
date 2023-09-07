@@ -48,7 +48,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             if (chefTransform == null) return;
 
             Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-            transform.position += (Vector3)directionToChef * characterData.moveSpeed * Time.deltaTime;
+            transform.position += (Vector3)directionToChef * currentSpeed * Time.deltaTime;
         }
 
         protected override void Attack()

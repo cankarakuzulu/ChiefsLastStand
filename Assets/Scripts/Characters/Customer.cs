@@ -10,11 +10,12 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
     {
         [SerializeField] private GameObject coinPrefab;
 
-        private float originalMoveSpeed;
         private bool isSlowed = false;
+        private SpriteRenderer spriteRenderer;
         protected CustomerState currentState;
         protected Transform chefTransform;
         protected float lastAttackTime = float.MinValue;
+        protected float currentSpeed;
 
         protected enum CustomerState
         {
@@ -25,7 +26,8 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected override void Start()
         {
             base.Start();
-            originalMoveSpeed = characterData.moveSpeed;
+            currentSpeed = characterData.moveSpeed;
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
             GameObject chefObject = GameObject.FindWithTag("Chef");
             if (chefObject != null)
@@ -55,23 +57,27 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         public void ApplySlowEffect(float slowEffect)
         {
             if (isSlowed) return;
-
+            Debug.Log("Slow Effect Value: " + slowEffect);
             StartCoroutine(SlowEffectCoroutine(slowEffect));
         }
 
         private IEnumerator SlowEffectCoroutine(float slowEffect)
         {
             isSlowed = true;
+            Color currentColor = spriteRenderer.color;
+            Debug.Log("Entering slow coroutine. Original Speed: " + currentSpeed);
 
             // Reduce the move speed
-            characterData.moveSpeed *= (1f - slowEffect);
-
+            currentSpeed *= (1f - slowEffect);
+            spriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, 0.6f); //to see slowed down customers
+            Debug.Log("---------------------------------------Modified Speed: " + currentSpeed);
             // Stay slow for 5 seconds
             yield return new WaitForSeconds(5f);
 
             // Restore the original move speed
-            characterData.moveSpeed = originalMoveSpeed;
-
+            currentSpeed = characterData.moveSpeed;
+            spriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, 1f); //restore the alpha value
+            Debug.Log("Coroutine finished. Speed restored to: " + currentSpeed);
             isSlowed = false;
         }
 
