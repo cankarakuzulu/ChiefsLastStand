@@ -36,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6283775581852059307
 SpriteRenderer:
@@ -103,7 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: 3e167c8e3715b0746bc15ab123b87c10, type: 2}
-  chefData: {fileID: 11400000, guid: 3e167c8e3715b0746bc15ab123b87c10, type: 2}
+  defaultChefData: {fileID: 11400000, guid: 3e167c8e3715b0746bc15ab123b87c10, type: 2}
+  upgradeManager: {fileID: 0}
 --- !u!114 &8098939482598666935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396159517992130440}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

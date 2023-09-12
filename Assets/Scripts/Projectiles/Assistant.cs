@@ -13,11 +13,13 @@ namespace nopact.ChefsLastStand.Upgrades
         private AssistantSkill skill;
         private Chef chef;
         private float lastAttackTime;
+        private Rigidbody2D rb;
 
         public void Initialize(AssistantSkill skill, Chef chef)
         {
             this.skill = skill;
             this.chef = chef;
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -31,7 +33,12 @@ namespace nopact.ChefsLastStand.Upgrades
             float distanceToChef = Vector3.Distance(chef.transform.position, transform.position);
             if (distanceToChef > skill.followDistance)
             {
-                transform.position = Vector3.MoveTowards(transform.position, chef.transform.position, chef.ChefData.moveSpeed * Time.deltaTime);
+                Vector2 directionToChef = (chef.transform.position - transform.position).normalized;
+                rb.velocity = directionToChef * chef.ChefData.moveSpeed;
+            }
+            else
+            {
+                rb.velocity = Vector2.zero; 
             }
         }
 
@@ -62,10 +69,15 @@ namespace nopact.ChefsLastStand.Upgrades
         {
             Customer[] customers = FindObjectsOfType<Customer>();
             Customer nearestCustomer = null;
-            float minDistance = Mathf.Infinity;  // Setting to infinity to ensure any distance will be shorter
+            float minDistance = Mathf.Infinity;
 
             foreach (var customer in customers)
             {
+                if (!customer.transform.IsInCameraView())
+                {
+                    continue;
+                }
+
                 float distance = Vector2.Distance(transform.position, customer.transform.position);
                 if (distance < minDistance)
                 {

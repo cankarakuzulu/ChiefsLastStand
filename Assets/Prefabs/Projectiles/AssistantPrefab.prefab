@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7647292827930737618}
   - component: {fileID: 8322287473762392615}
   - component: {fileID: 591848926379790495}
+  - component: {fileID: -7426016877566385030}
   m_Layer: 0
   m_Name: AssistantPrefab
   m_TagString: Untagged
@@ -98,3 +99,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assistantBurgerPrefab: {fileID: 6670450779637359487, guid: aeed71162d61e404d8a53033c64aecc7, type: 3}
+--- !u!50 &-7426016877566385030
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577061166905270680}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -16,6 +16,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected Transform chefTransform;
         protected float lastAttackTime = float.MinValue;
         protected float currentSpeed;
+        protected Rigidbody2D rb;
 
         protected enum CustomerState
         {
@@ -26,6 +27,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected override void Start()
         {
             base.Start();
+            rb = GetComponent<Rigidbody2D>();
             currentSpeed = characterData.moveSpeed;
             spriteRenderer = GetComponent<SpriteRenderer>();
 

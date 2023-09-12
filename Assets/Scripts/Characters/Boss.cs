@@ -17,10 +17,12 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected BossState currentState;
         protected float lastAttackTime;
         protected Transform chefTransform;
+        protected Rigidbody2D rb;
 
         protected override void Start()
         {
             base.Start();
+            rb = GetComponent<Rigidbody2D>();
             currentState = BossState.Idle;
 
             GameObject chefObject = GameObject.FindWithTag("Chef");

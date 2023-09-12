@@ -67,6 +67,11 @@ namespace nopact.ChefsLastStand.Upgrades
             Vector3 currentPos = transform.position;
             foreach (Customer customer in customers)
             {
+                if (!customer.transform.IsInCameraView())
+                {
+                    continue;
+                }
+
                 float dist = Vector3.Distance(customer.transform.position, currentPos);
                 if (dist < minDist)
                 {

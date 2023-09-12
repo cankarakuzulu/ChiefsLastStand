@@ -10,7 +10,7 @@ namespace nopact.ChefsLastStand.Upgrades
         private GameObject[] activePizzas;
         private float rotationSpeed;
         private float damage;
-        private Coroutine pizzaSkillCoroutine;        
+        private Coroutine pizzaSkillCoroutine;
 
         public void ActivatePizzaSkill(PizzaSkill skill)
         {
@@ -74,7 +74,7 @@ namespace nopact.ChefsLastStand.Upgrades
             return Quaternion.Euler(angles) * (point - pivot) + pivot;
         }
 
-        
+
 
         private void DespawnPizzas()
         {
@@ -88,6 +88,6 @@ namespace nopact.ChefsLastStand.Upgrades
             }
         }
 
-        
-    } 
+
+    }
 }

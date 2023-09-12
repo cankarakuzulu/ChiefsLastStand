@@ -56,6 +56,11 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
 
             foreach (var customer in customers)
             {
+                if (!customer.transform.IsInCameraView())
+                {
+                    continue;
+                }
+
                 float distance = Vector2.Distance(transform.position, customer.transform.position);
                 if (distance < minDistance)
                 {

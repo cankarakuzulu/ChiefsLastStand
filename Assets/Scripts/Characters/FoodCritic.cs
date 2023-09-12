@@ -51,7 +51,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected override void MoveBehavior()
         {
             Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-            transform.position += (Vector3)directionToChef * characterData.moveSpeed * Time.deltaTime;
+            rb.velocity = directionToChef * characterData.moveSpeed;
 
             if (Vector2.Distance(transform.position, chefTransform.position) <= normalAttackRange)
             {

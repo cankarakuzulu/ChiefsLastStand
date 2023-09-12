@@ -37,6 +37,7 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public void OnChefLevelUp()
         {
+            Time.timeScale = 0;
             currentOptions.Clear();
 
             List<Upgrade> tempUpgradeList = EligibleUpgrades();
@@ -69,6 +70,7 @@ namespace nopact.ChefsLastStand.Upgrades
             }
 
             upgradePanel.SetActive(false);
+            Time.timeScale = 1;
         }
 
         private List<Upgrade> EligibleUpgrades()

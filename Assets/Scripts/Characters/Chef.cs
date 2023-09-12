@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using nopact.ChefsLastStand.Data.ChefData;
 using nopact.ChefsLastStand.Upgrades;
+using nopact.ChefsLastStand.Gameplay.Items;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
@@ -16,7 +17,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         private int coinsCollected = 0;
         private int totalCoinsCollected = 0;
         private int currentLevel = 1;
-        private GameObject currentHeatWaveAura;
+
         private Pizza currentPizza;
 
         public ChefData ChefData => currentChefData;
@@ -32,6 +33,26 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             base.Start();
             ResetToDefaultStats();
         }
+        private void Update()
+        {
+            PickUpCoinsInRange();
+            CheckForLevelUp();
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            float evasionChance = UnityEngine.Random.Range(0f, 100f);
+            if (evasionChance < ChefData.evasion)
+            {
+                Debug.Log("Attack evaded!");
+                return;
+            }
+
+            float reducedDamage = damage * (1 - (ChefData.defense / 100f));
+
+            base.TakeDamage(reducedDamage);
+        }
+
 
         public void CollectCoin()
         {
@@ -60,18 +81,6 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             }
         }
 
-        public void ApplyHeatWaveSkill(HeatwaveUpgrade skill)
-        {
-            if (currentHeatWaveAura != null)
-            {
-                Destroy(currentHeatWaveAura);
-            }
-
-            currentHeatWaveAura = Instantiate(skill.heatWaveCirclePrefab, transform.position, Quaternion.identity, transform);
-            var auraScript = currentHeatWaveAura.GetComponent<HeatWaveAura>();
-            auraScript.SetDamage(skill.damagePerSecond);
-        }
-
         public void ActivatePizzaSkill(PizzaSkill skill)
         {
             if (currentPizza != null)
@@ -96,6 +105,21 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         {
             currentLevel++;
             upgradeManager.OnChefLevelUp();
+        }
+
+        private void PickUpCoinsInRange()
+        {
+            // Check in a circular area around the chef for any coins
+            Collider2D[] coinsInRange = Physics2D.OverlapCircleAll(transform.position, ChefData.pickUpArea);
+
+            foreach (Collider2D collider in coinsInRange)
+            {
+                if (collider.gameObject.CompareTag("Coin"))
+                {
+                    Coin coin = collider.gameObject.GetComponent<Coin>();
+                    coin.MoveToChef();
+                }
+            }
         }
 
         private void ResetToDefaultStats()

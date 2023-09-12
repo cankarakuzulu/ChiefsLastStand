@@ -22,7 +22,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
         protected override void ChaseChef()
         {
             Vector2 directionToChef = (chefTransform.position - transform.position).normalized;
-            transform.position += (Vector3)directionToChef * currentSpeed * Time.deltaTime;
+            rb.velocity = directionToChef * currentSpeed;
         }
 
         protected override void Attack()

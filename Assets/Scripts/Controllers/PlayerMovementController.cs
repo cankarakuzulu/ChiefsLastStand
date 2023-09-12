@@ -12,17 +12,20 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
 
         private Chef chef;
         private Vector2 moveDirection;
+        private Rigidbody2D rb;
 
         private void Start()
         {
             chef = GetComponent<Chef>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         public void HandleMovement()
         {
             moveDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
             moveDirection.Normalize();
-            transform.position += (Vector3)moveDirection * chef.ChefData.moveSpeed * Time.deltaTime;
+
+            rb.velocity = moveDirection * chef.ChefData.moveSpeed;
         }
     }
 }

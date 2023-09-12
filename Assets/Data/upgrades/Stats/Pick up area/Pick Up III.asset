@@ -17,4 +17,4 @@ MonoBehaviour:
   description: Increase pick up range
   upgradeType: 6
   level: 3
-  pickupEnhancementPercent: 180
+  pickupEnhancementPercent: 300
