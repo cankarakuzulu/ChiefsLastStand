@@ -32,12 +32,18 @@ namespace nopact.ChefsLastStand.Upgrades
         public GameObject upgradePanel;
         public UpgradeUIOption[] upgradeUIOptions = new UpgradeUIOption[3];
 
+        private PauseManager pauseManager;
         private List<Upgrade> currentOptions = new List<Upgrade>();
         private Dictionary<UpgradeType, int> currentUpgrades = new Dictionary<UpgradeType, int>();
 
+        private void Awake()
+        {
+            pauseManager = FindObjectOfType<PauseManager>();
+        }
+
         public void OnChefLevelUp()
         {
-            Time.timeScale = 0;
+            pauseManager.PauseGame();
             currentOptions.Clear();
 
             List<Upgrade> tempUpgradeList = EligibleUpgrades();
@@ -70,7 +76,7 @@ namespace nopact.ChefsLastStand.Upgrades
             }
 
             upgradePanel.SetActive(false);
-            Time.timeScale = 1;
+            pauseManager.ResumeGame();
         }
 
         private List<Upgrade> EligibleUpgrades()
