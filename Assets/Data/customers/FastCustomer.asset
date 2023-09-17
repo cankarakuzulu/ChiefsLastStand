@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d726db600c77504cba6c321d6ce54f1, type: 3}
   m_Name: FastCustomer
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   damage: 1
-  moveSpeed: 2
+  moveSpeed: 3
   attackCooldown: 1
