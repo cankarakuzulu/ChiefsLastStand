@@ -8,7 +8,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Skill Upgrades/Hot Sauce Skill")]
-    public class HotSauceSkill : Upgrade
+    public class HotSauceSkill : Upgrade, IActiveSkill
     {
         public float damagePerSecond;
         public float slowEffect;

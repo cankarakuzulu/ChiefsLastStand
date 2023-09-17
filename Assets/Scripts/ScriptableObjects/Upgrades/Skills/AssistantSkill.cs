@@ -7,7 +7,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Skill Upgrades/Assistant Skill")]
-    public class AssistantSkill : Upgrade
+    public class AssistantSkill : Upgrade, IActiveSkill
     {
         public float attackCooldown;
         public float followDistance;

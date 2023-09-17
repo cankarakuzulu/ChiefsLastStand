@@ -6,7 +6,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Defense Upgrade")]
-    public class DefenseUpgrade : Upgrade
+    public class DefenseUpgrade : Upgrade, IPassiveSkill
     {
         public float defense;
 

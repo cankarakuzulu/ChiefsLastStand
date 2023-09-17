@@ -7,7 +7,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Skill Upgrades/Buffet Table Skill")]
-    public class BuffetTableSkill : Upgrade
+    public class BuffetTableSkill : Upgrade, IActiveSkill
     {
         public float damage;
         public float radius;

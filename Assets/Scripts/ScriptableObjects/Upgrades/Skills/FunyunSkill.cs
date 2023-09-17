@@ -7,7 +7,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Skill Upgrades/Funyun Skill")]
-    public class FunyunSkill : Upgrade
+    public class FunyunSkill : Upgrade, IActiveSkill
     {
         public float damage;
         public float cooldown;

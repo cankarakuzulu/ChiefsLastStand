@@ -33,12 +33,14 @@ namespace nopact.ChefsLastStand.Upgrades
         public UpgradeUIOption[] upgradeUIOptions = new UpgradeUIOption[3];
 
         private PauseManager pauseManager;
+        private Chef chef;
         private List<Upgrade> currentOptions = new List<Upgrade>();
         private Dictionary<UpgradeType, int> currentUpgrades = new Dictionary<UpgradeType, int>();
 
         private void Awake()
         {
             pauseManager = FindObjectOfType<PauseManager>();
+            chef = FindObjectOfType<Chef>();
         }
 
         public void OnChefLevelUp()
@@ -62,7 +64,6 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public void ApplySelectedUpgrade(int index)
         {
-            Chef chef = FindObjectOfType<Chef>();
             currentOptions[index].ApplyUpgrade(chef);
 
             // Track the applied upgrade's level
@@ -82,13 +83,33 @@ namespace nopact.ChefsLastStand.Upgrades
         private List<Upgrade> EligibleUpgrades()
         {
             List<Upgrade> eligibleUpgrades = new List<Upgrade>();
+            int activeSkillsCount = 0;
+            int passiveSkillsCount = 0;
+            HashSet<UpgradeType> possessedSkills = new HashSet<UpgradeType>(currentUpgrades.Keys);
+
+            foreach (var key in currentUpgrades.Keys)
+            {
+                if (key <= UpgradeType.PickUpArea)
+                    passiveSkillsCount++;
+                else
+                    activeSkillsCount++;
+            }
+
             foreach (var upgrade in allUpgrades)
             {
                 int currentLevel = GetUpgradeLevel(upgrade.upgradeType);
+
+                if (upgrade is IActiveSkill && activeSkillsCount >= 5 && !possessedSkills.Contains(upgrade.upgradeType)) continue;
+                if (upgrade is IPassiveSkill && passiveSkillsCount >= 5 && !possessedSkills.Contains(upgrade.upgradeType)) continue;
+
                 if (upgrade.level == currentLevel + 1)
                 {
                     eligibleUpgrades.Add(upgrade);
                 }
+            }
+            if (eligibleUpgrades.Count == 0)
+            {
+                Debug.LogWarning("All possessed skills are at their maximum tier. No upgrades available.");
             }
             return eligibleUpgrades;
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Pick Up Area Upgrade")]
-    public class PickUpUpgrade : Upgrade
+    public class PickUpUpgrade : Upgrade, IPassiveSkill
     {
         public float pickupEnhancementPercent;
 

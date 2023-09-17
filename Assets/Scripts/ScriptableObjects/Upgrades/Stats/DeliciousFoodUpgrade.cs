@@ -6,7 +6,7 @@ using UnityEngine;
 namespace nopact.ChefsLastStand.Upgrades
 {
     [CreateAssetMenu(menuName = "Upgrades/Stat Upgrades/Delicious Food Upgrade")]
-    public class DeliciousFoodUpgrade : Upgrade
+    public class DeliciousFoodUpgrade : Upgrade, IPassiveSkill
     {
         public float damageBoostPercent;
 
