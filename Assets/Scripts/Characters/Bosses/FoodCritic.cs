@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using nopact.ChefsLastStand.Gameplay.Entities;
 using nopact.ChefsLastStand.Gameplay.Projectiles;
 using UnityEngine;
 
