@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public abstract class Customer : Character
+    public abstract class Customer : Character, IAttackable
     {
         [SerializeField] private GameObject coinPrefab;
 
@@ -54,6 +54,21 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     Attack();
                     break;
             }
+        }
+
+        private void Awake()
+        {
+            AttackableManager.Register(this);
+        }
+
+        private void OnDestroy()
+        {
+            AttackableManager.DeRegister(this);
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
         }
 
         public void ApplySlowEffect(float slowEffect)

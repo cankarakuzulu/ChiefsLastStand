@@ -19,34 +19,16 @@ namespace nopact.ChefsLastStand.Upgrades
         {
             Action buffetTableSkillAction = () =>
             {
-                Customer targetCustomer = FindRandomCustomer();
-                if (targetCustomer != null)
+                IAttackable targetAttackable = AttackableSearch.FindRandomAttackable();
+                if (targetAttackable != null)
                 {
                     GameObject buffetTableInstance = Instantiate(buffetTablePrefab, chef.transform.position, Quaternion.identity);
                     BuffetTable buffetTableScript = buffetTableInstance.GetComponent<BuffetTable>();
-                    buffetTableScript.Initialize(this, targetCustomer.transform.position);
+                    buffetTableScript.Initialize(this, targetAttackable.GetTransform().position);
                 }
             };
 
             chef.ApplySkillWithRoutine(chef.SkillRoutine(buffetTableSkillAction, cooldown));
-        }
-        private Customer FindRandomCustomer()
-        {
-            List<Customer> visibleCustomers = new List<Customer>();
-            Customer[] customers = FindObjectsOfType<Customer>();
-
-            foreach (var customer in customers)
-            {
-                if (customer.transform.IsInCameraView())
-                {
-                    visibleCustomers.Add(customer);
-                }
-            }
-
-            if (visibleCustomers.Count == 0) return null;
-
-            int randomIndex = UnityEngine.Random.Range(0, visibleCustomers.Count);
-            return visibleCustomers[randomIndex];
         }
     }
 }

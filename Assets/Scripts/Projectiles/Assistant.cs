@@ -46,47 +46,23 @@ namespace nopact.ChefsLastStand.Upgrades
         {
             if (Time.time >= lastAttackTime + skill.attackCooldown)
             {
-                AttackNearestCustomer();
+                AttackNearestAttackable();
             }
         }
 
-        private void AttackNearestCustomer()
+        private void AttackNearestAttackable()
         {
-            Customer nearestCustomer = FindNearestCustomer();
+            IAttackable nearestAttackable = AttackableSearch.FindNearestAttackable(transform.position, chef.ChefData.attackRange);
 
-            if (nearestCustomer)
+            if (nearestAttackable != null)
             {
                 GameObject burgerGO = Instantiate(assistantBurgerPrefab, transform.position, Quaternion.identity);
                 Burger burger = burgerGO.GetComponent<Burger>();
-                Vector2 directionToCustomer = nearestCustomer.transform.position - transform.position;
-                burger.SetInitialDirection(directionToCustomer.normalized);
+                Vector2 directionToAttackable = nearestAttackable.GetTransform().position - transform.position;
+                burger.SetInitialDirection(directionToAttackable.normalized);
 
                 lastAttackTime = Time.time;
             }
-        }
-
-        private Customer FindNearestCustomer()
-        {
-            Customer[] customers = FindObjectsOfType<Customer>();
-            Customer nearestCustomer = null;
-            float minDistance = Mathf.Infinity;
-
-            foreach (var customer in customers)
-            {
-                if (!customer.transform.IsInCameraView())
-                {
-                    continue;
-                }
-
-                float distance = Vector2.Distance(transform.position, customer.transform.position);
-                if (distance < minDistance)
-                {
-                    nearestCustomer = customer;
-                    minDistance = distance;
-                }
-            }
-
-            return nearestCustomer;
         }
     }
 }

@@ -16,13 +16,10 @@ namespace nopact.ChefsLastStand.Upgrades
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Customer"))
+            var attackable = collision.GetComponent<IAttackable>();
+            if (attackable != null)
             {
-                var customer = collision.GetComponent<Customer>();
-                if (customer != null)
-                {
-                    customer.TakeDamage(damage);
-                }
+                attackable.TakeDamage(damage);
             }
         }
     }

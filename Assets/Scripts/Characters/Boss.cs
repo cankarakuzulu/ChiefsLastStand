@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public abstract class Boss : Character
+    public abstract class Boss : Character, IAttackable
     {
         protected enum BossState
         {
@@ -53,6 +53,21 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     MoveBehavior();
                     break;
             }
+        }
+
+        private void Awake()
+        {
+            AttackableManager.Register(this);
+        }
+
+        private void OnDestroy()
+        {
+            AttackableManager.DeRegister(this);
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
         }
 
         protected abstract void IdleBehavior();

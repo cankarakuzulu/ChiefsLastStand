@@ -33,10 +33,10 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Customer customer = other.GetComponent<Customer>();
-            if (customer)
+            IAttackable attackableEntity = other.GetComponent<IAttackable>();
+            if (attackableEntity != null)
             {
-                customer.TakeDamage(damage);
+                attackableEntity.TakeDamage(damage);
                 Destroy(gameObject);
             }
         }

@@ -8,32 +8,32 @@ namespace nopact.ChefsLastStand
     public class HeatWaveAura : MonoBehaviour
     {
         private float damagePerSecond;
-        private HashSet<Customer> customersInAura = new HashSet<Customer>();
+        private HashSet<IAttackable> entitiesInAura = new HashSet<IAttackable>();
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Customer customer = collision.GetComponent<Customer>();
-            if (customer)
+            IAttackable entity = collision.GetComponent<IAttackable>();
+            if (entity != null)
             {
-                customersInAura.Add(customer);
-                StartCoroutine(DamageCustomer(customer));
+                entitiesInAura.Add(entity);
+                StartCoroutine(DamageEntity(entity));
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            Customer customer = collision.GetComponent<Customer>();
-            if (customer)
+            IAttackable entity = collision.GetComponent<IAttackable>();
+            if (entity != null)
             {
-                customersInAura.Remove(customer);
+                entitiesInAura.Remove(entity);
             }
         }
 
-        private IEnumerator DamageCustomer(Customer customer)
+        private IEnumerator DamageEntity(IAttackable entity)
         {
-            while (customersInAura.Contains(customer))
+            while (entitiesInAura.Contains(entity))
             {
-                customer.TakeDamage(damagePerSecond);
+                entity.TakeDamage(damagePerSecond);
                 yield return new WaitForSeconds(1f);
             }
         }
