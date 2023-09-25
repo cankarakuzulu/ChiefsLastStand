@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6febf63cc99144fae9314ed361cbe1, type: 3}
   m_Name: Chef Stats
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   damage: 3
   moveSpeed: 1.5
   attackCooldown: 1
   attackRange: 3
   defense: 0
   evasion: 0
-  maxHealth: 100
+  maxHealth: 50
   pickUpArea: 0.4
   burgerCount: 1

@@ -9,7 +9,7 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
     {
         private float damagePerSecond;
         private float slowEffect;
-        private Dictionary<Customer, Coroutine> activeCustomers = new Dictionary<Customer, Coroutine>();
+        private Dictionary<IAttackable, Coroutine> activeAttackables = new Dictionary<IAttackable, Coroutine>();
 
         private void Start()
         {
@@ -18,25 +18,26 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Customer"))
+            IAttackable attackable = other.GetComponent<IAttackable>();
+            if (attackable != null)
             {
-                Customer customer = other.gameObject.GetComponent<Customer>();
-                customer.ApplySlowEffect(slowEffect);
-                Coroutine damageRoutine = StartCoroutine(DamageOverTime(customer));
-                activeCustomers.Add(customer, damageRoutine);
+                if (attackable is Customer customer)
+                {
+                    customer.ApplySlowEffect(slowEffect);
+                }
+
+                Coroutine damageRoutine = StartCoroutine(DamageOverTime(attackable));
+                activeAttackables.Add(attackable, damageRoutine);
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Customer"))
+            IAttackable attackable = other.GetComponent<IAttackable>();
+            if (attackable != null && activeAttackables.TryGetValue(attackable, out Coroutine damageRoutine))
             {
-                Customer customer = other.gameObject.GetComponent<Customer>();
-                if (activeCustomers.TryGetValue(customer, out Coroutine damageRoutine))
-                {
-                    StopCoroutine(damageRoutine);
-                    activeCustomers.Remove(customer);
-                }
+                StopCoroutine(damageRoutine);
+                activeAttackables.Remove(attackable);
             }
         }
 
@@ -46,11 +47,11 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             this.slowEffect = slowEffect;
         }
 
-        private IEnumerator DamageOverTime(Customer customer)
+        private IEnumerator DamageOverTime(IAttackable attackable)
         {
             while (true)
             {
-                customer.TakeDamage(damagePerSecond);
+                attackable.TakeDamage(damagePerSecond);
                 yield return new WaitForSeconds(1);
             }
         }

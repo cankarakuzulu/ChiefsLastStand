@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand.Gameplay.Entities
 {
-    public abstract class Boss : Character
+    public abstract class Boss : Character, IAttackable
     {
+        public static event Action OnBossDefeated = delegate { };
+
         protected enum BossState
         {
             Idle,
@@ -53,6 +56,27 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
                     MoveBehavior();
                     break;
             }
+        }
+
+        private void Awake()
+        {
+            AttackableManager.Register(this);
+        }
+
+        private void OnDestroy()
+        {
+            AttackableManager.DeRegister(this);
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
+        }
+        protected override void Die()
+        {
+            base.Die();
+
+            OnBossDefeated();
         }
 
         protected abstract void IdleBehavior();

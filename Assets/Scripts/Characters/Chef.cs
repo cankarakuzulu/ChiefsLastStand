@@ -72,6 +72,32 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             StartCoroutine(routine);
         }
 
+        public void ReviveAfterDeath()
+        {
+            health = currentChefData.maxHealth * 0.5f;
+            Time.timeScale = 1f;
+
+            float explosionRange = 5.0f;
+
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRange);
+
+            foreach (var hitCollider in hitColliders)
+            {
+                IAttackable attackableEntity = hitCollider.GetComponent<IAttackable>();
+                if (attackableEntity != null)
+                {
+                    attackableEntity.TakeDamage(currentChefData.damage * 10);
+                }
+            }
+        }
+
+        public void SaveCollectedCoins()
+        {
+            int coins = GetTotalCoinsCollected();
+            PlayerPrefs.SetInt("Coins", coins + PlayerPrefs.GetInt("Coins", 0));
+        }
+
+
         public IEnumerator SkillRoutine(Action skillAction, float cooldown)
         {
             while (true)
@@ -135,6 +161,13 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             currentChefData.maxHealth = defaultChefData.maxHealth;
             currentChefData.pickUpArea = defaultChefData.pickUpArea;
             currentChefData.burgerCount = defaultChefData.burgerCount;
+        }
+
+        protected override void Die()
+        {
+            StageUIController.Instance.ShowDeathUI();
+
+            Time.timeScale = 0f;
         }
     }
 }

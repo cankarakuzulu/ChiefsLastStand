@@ -23,7 +23,7 @@ namespace nopact.ChefsLastStand.Upgrades
                 isReturning = true;
             }
 
-            if (IsOutsideCameraView())
+            if (!transform.IsInCameraView())
             {
                 Destroy(gameObject);
             }
@@ -31,55 +31,27 @@ namespace nopact.ChefsLastStand.Upgrades
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Customer"))
+            IAttackable attackable = other.GetComponent<IAttackable>();
+            if (attackable != null)
             {
-                other.GetComponent<Customer>().TakeDamage(skill.damage);
+                attackable.TakeDamage(skill.damage);
             }
         }
 
         public void Initialize(FunyunSkill skill, Vector3 chefPosition)
         {
             this.skill = skill;
-            Customer target = FindNearestCustomer();
+            IAttackable target = AttackableSearch.FindNearestAttackable(chefPosition,skill.maxRange);
 
             if (target != null)
             {
-                direction = (target.transform.position - transform.position).normalized;
+                direction = (target.GetTransform().position - transform.position).normalized;
                 chefTransform = FindObjectOfType<Chef>().transform;
             }
             else
             {
                 Destroy(gameObject);
             }
-        }
-
-        private bool IsOutsideCameraView()
-        {
-            Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
-            return screenPoint.x < 0 || screenPoint.x > 1 || screenPoint.y < 0 || screenPoint.y > 1;
-        }
-
-        private Customer FindNearestCustomer()
-        {
-            Customer[] customers = FindObjectsOfType<Customer>();
-            Customer nearest = null;
-            float minDist = Mathf.Infinity;
-            Vector3 currentPos = transform.position;
-            foreach (Customer customer in customers)
-            {
-                if (!customer.transform.IsInCameraView())
-                {
-                    continue;
-                }
-
-                float dist = Vector3.Distance(customer.transform.position, currentPos);
-                if (dist < minDist)
-                {
-                    nearest = customer;
-                    minDist = dist;
-                }
-            }
-            return nearest;
         }
     }
 }
