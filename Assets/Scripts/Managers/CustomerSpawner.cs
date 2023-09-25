@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using nopact.ChefsLastStand.Gameplay.Entities;
 using UnityEngine;
 
 namespace nopact.ChefsLastStand
 {
     public enum StageEventType
     {
-        EnemyRush,
+        Spawn,
         BossSpawn
     }
 
@@ -14,35 +15,49 @@ namespace nopact.ChefsLastStand
     public class StageEvent
     {
         public StageEventType eventType;
-        public float triggerTime;  // In minutes
-        public GameObject bossPrefab;  // Only used if eventType is BossSpawn
+        public float triggerTime; //seconds
+        public GameObject bossPrefab;
+        public List<CustomerType> eventCustomerTypes;
+        public bool isFinalBoss;
+        public float spawnInterval;
     }
+
+    [System.Serializable]
+    public class CustomerType
+    {
+        public GameObject customerPrefab;
+        public float spawnWeight;
+    }
+
     public class CustomerSpawner : MonoBehaviour
     {
-        [System.Serializable]
-        public class CustomerType
-        {
-            public GameObject customerPrefab;
-            public float spawnWeight;
-        }
-
-        public List<CustomerType> customerTypes;
-        public List<CustomerType> enemyRushTypes;
         public List<StageEvent> stageEvents;
-        public float spawnInterval = 5.0f;
-        public float enemyRushSpawnInterval = 3.0f;
 
         private GameObject[] spawnPoints;
         private float totalSpawnWeight;
         private bool isBossFightMode = false;
         private int nextEventIndex = 0;
+        private List<CustomerType> currentEventCustomerTypes;
+        private float currentEventSpawnInterval;
+
 
         private void Start()
         {
             spawnPoints = GameObject.FindGameObjectsWithTag("CustomerSpawnPoint");
-
-            ResetSpawnWeights(customerTypes);
+            currentEventCustomerTypes = stageEvents[0].eventCustomerTypes;
+            currentEventSpawnInterval = stageEvents[0].spawnInterval;
+            ResetSpawnWeights(currentEventCustomerTypes);
             StartCoroutine(SpawnCustomers());
+        }
+
+        private void OnEnable()
+        {
+            Boss.OnBossDefeated += HandleBossDefeat;
+        }
+
+        private void OnDisable()
+        {
+            Boss.OnBossDefeated -= HandleBossDefeat;
         }
 
         private void Update()
@@ -51,7 +66,7 @@ namespace nopact.ChefsLastStand
             {
                 float currentTime = FindObjectOfType<GameTimer>().GetElapsedTime();
                 StageEvent nextEvent = stageEvents[nextEventIndex];
-                if (currentTime >= nextEvent.triggerTime * 60)  // Convert to seconds
+                if (currentTime >= nextEvent.triggerTime)
                 {
                     ProcessEvent(nextEvent);
                     nextEventIndex++;
@@ -92,38 +107,57 @@ namespace nopact.ChefsLastStand
                 if (!isBossFightMode)
                 {
                     GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                    GameObject customerToSpawn = SelectRandomCustomer(customerTypes);
+                    GameObject customerToSpawn = SelectRandomCustomer(currentEventCustomerTypes);
                     Instantiate(customerToSpawn, spawnPoint.transform.position, Quaternion.identity);
                 }
 
-                yield return new WaitForSeconds(spawnInterval);
+                yield return new WaitForSeconds(currentEventSpawnInterval);
             }
         }
 
-        private void ProcessEvent(StageEvent stageEvent)
+        private void ProcessEvent(StageEvent currentEvent)
         {
-            switch (stageEvent.eventType)
+            currentEventCustomerTypes = currentEvent.eventCustomerTypes;
+            currentEventSpawnInterval = currentEvent.spawnInterval;
+            ResetSpawnWeights(currentEventCustomerTypes);
+
+            if (currentEvent.eventType == StageEventType.BossSpawn)
             {
-                case StageEventType.EnemyRush:
-                    StartEnemyRush();
-                    break;
-                case StageEventType.BossSpawn:
-                    StartBossFight(stageEvent.bossPrefab);
-                    break;
+                StartBossFight(currentEvent.bossPrefab);
+                FindObjectOfType<GameTimer>().PauseTimer();
             }
-        }
-
-        private void StartEnemyRush()
-        {
-            spawnInterval = enemyRushSpawnInterval;
-            ResetSpawnWeights(enemyRushTypes);
-            customerTypes = enemyRushTypes;
+            else if (currentEvent.eventType == StageEventType.Spawn)
+            {
+                isBossFightMode = false;
+            }
         }
 
         private void StartBossFight(GameObject bossPrefab)
         {
             isBossFightMode = true;
             Instantiate(bossPrefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+        }
+
+        private void HandleBossDefeat()
+        {
+            isBossFightMode = false;
+            FindObjectOfType<GameTimer>().ResumeTimer();
+
+            if (nextEventIndex < stageEvents.Count)
+            {
+                StageEvent nextEvent = stageEvents[nextEventIndex];
+                if (nextEvent.eventType == StageEventType.Spawn)
+                {
+                    currentEventCustomerTypes = nextEvent.eventCustomerTypes;
+                    currentEventSpawnInterval = nextEvent.spawnInterval;
+                    ResetSpawnWeights(currentEventCustomerTypes);
+                }
+            }
+
+            if (stageEvents[nextEventIndex - 1].isFinalBoss)
+            {
+                StageUIController.Instance.ShowEndGameUI();
+            }
         }
     }
 }
