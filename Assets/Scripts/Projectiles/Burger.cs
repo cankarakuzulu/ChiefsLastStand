@@ -9,26 +9,13 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
     {
         [SerializeField] private float speed = 5f;
 
-        private Chef chef;
         private float damage;
         private Vector2 moveDirection;
-
-        private void Start()
-        {
-            chef = FindObjectOfType<Chef>();
-            if (chef != null)
-            {
-                damage = chef.ChefData.damage;
-            }
-            else
-            {
-                Debug.LogError("Chef not found!");
-            }
-        }
 
         private void Update()
         {
             Move();
+            CheckOutOfBounds();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -37,7 +24,7 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             if (attackableEntity != null)
             {
                 attackableEntity.TakeDamage(damage);
-                Destroy(gameObject);
+                ReturnToPool();
             }
         }
 
@@ -46,9 +33,27 @@ namespace nopact.ChefsLastStand.Gameplay.Projectiles
             moveDirection = direction;
         }
 
+        public void SetDamage(float dmg)
+        {
+            damage = dmg;
+        }
+
         private void Move()
         {
             transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
+        }
+
+        private void CheckOutOfBounds()
+        {
+            if (!transform.IsInCameraView())
+            {
+                ReturnToPool();
+            }
+        }
+
+        private void ReturnToPool()
+        {
+            BurgerPool.Instance.ReturnToPool(this);
         }
     }
 }

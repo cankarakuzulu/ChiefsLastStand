@@ -51,11 +51,14 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
 
             if (nearestAttackable != null)
             {
-                GameObject burgerGO = Instantiate(burgerPrefab, chef.transform.position, Quaternion.identity);
+                Burger burger = BurgerPool.Instance.GetBurger();
+                burger.SetDamage(chef.ChefData.damage);
+                burger.transform.position = chef.transform.position;
 
-                Burger burger = burgerGO.GetComponent<Burger>();
                 Vector2 directionToAttackable = nearestAttackable.GetTransform().position - transform.position;
                 burger.SetInitialDirection(directionToAttackable.normalized);
+
+                burger.gameObject.SetActive(true);
             }
         }
     }

@@ -28,7 +28,7 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
             {
                 Die();
             }
-            Debug.Log(this.name + "'s health is: " + health);
+            if(this != null) Debug.Log(this.name + "'s health is: " + health);
         }
 
         public virtual void Heal(float hp)
