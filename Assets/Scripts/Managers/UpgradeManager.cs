@@ -74,6 +74,7 @@ namespace nopact.ChefsLastStand.Upgrades
 
             upgradePanel.SetActive(false);
             Time.timeScale = 1f;
+
         }
 
         private List<Upgrade> EligibleUpgrades()

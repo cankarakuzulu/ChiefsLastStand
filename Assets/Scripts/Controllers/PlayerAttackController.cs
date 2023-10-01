@@ -34,6 +34,19 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
         }
         private void AttackNearestAttackable()
         {
+            for (int i = 0; i < chef.ChefData.burgerCount; i++)
+            {
+                float delay = i * 0.2f;
+                StartCoroutine(ThrowBurger(delay));
+            }
+
+            lastAttackTime = Time.time;
+            isReadyToAttack = false;
+        }
+
+        private IEnumerator ThrowBurger(float delay)
+        {
+            yield return new WaitForSeconds(delay);
             IAttackable nearestAttackable = AttackableSearch.FindNearestAttackable(transform.position, chef.ChefData.attackRange);
 
             if (nearestAttackable != null)
@@ -43,9 +56,6 @@ namespace nopact.ChefsLastStand.Gameplay.Controls
                 Burger burger = burgerGO.GetComponent<Burger>();
                 Vector2 directionToAttackable = nearestAttackable.GetTransform().position - transform.position;
                 burger.SetInitialDirection(directionToAttackable.normalized);
-
-                lastAttackTime = Time.time;
-                isReadyToAttack = false;
             }
         }
     }

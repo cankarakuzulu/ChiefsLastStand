@@ -100,8 +100,11 @@ namespace nopact.ChefsLastStand.Gameplay.Entities
 
         protected override void Die()
         {
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            if(this != null)
+            {
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }          
         }
 
         protected abstract void UpdateState();

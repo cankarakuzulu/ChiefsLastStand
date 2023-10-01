@@ -15,6 +15,11 @@ namespace nopact.ChefsLastStand.Upgrades
 
         public override void ApplyUpgrade(Chef chef)
         {
+            foreach (var existingAssistant in FindObjectsOfType<Assistant>())
+            {
+                Destroy(existingAssistant.gameObject);
+            }
+
             Vector3 spawnpos = new Vector3(chef.transform.position.x + 1f, chef.transform.position.y, chef.transform.position.z);
             Action assistantSkillAction = () =>
             {
